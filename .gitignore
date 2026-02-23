@@ -1,0 +1,5 @@
+ebook_audio/**
+ebook_txt/**
+ebook_subtitles/**
+input.epub
+output.txt
