@@ -3,3 +3,9 @@ ebook_txt/**
 ebook_subtitles/**
 input.epub
 output.txt
+.vscode
+.venv
+async_audio_gen.log
+__pycache__/
+tests/test.srt
+tests/test.mp3

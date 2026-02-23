@@ -13,9 +13,11 @@ pip install pandas asyncio edge_tts
 
 ## Korean Voices
 
-ko-KR-HyunsuMultilingualNeural     Male      General                Friendly, Positive
-ko-KR-InJoonNeural                 Male      General                Friendly, Positive
-ko-KR-SunHiNeural                  Female    General                Friendly, Positive
+| Name                           | Gender | Use     | Characteristics    |
+| ------------------------------ | ------ | ------- | ------------------ |
+| ko-KR-HyunsuMultilingualNeural | Male   | General | Friendly, Positive |
+| ko-KR-InJoonNeural             | Male   | General | Friendly, Positive |
+| ko-KR-SunHiNeural              | Female | General | Friendly, Positive |
 
-InJoonNeural max 4 hours
+InJoonNeural max 4 hours  
 SunHiNeural max 12 hrs/~10,000 lines

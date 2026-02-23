@@ -31,6 +31,7 @@ def epub_to_txt(epub_file: str, epub_output_file: str):
             capture_output=True, 
             text=True
         )
+        logger.info(f"Successfully converted '{epub_file}' into '{epub_output_file}'.")
     except Exception as e:
         logger.error(e)
         raise
@@ -100,6 +101,7 @@ def load_file(folder_path: str) -> dict:
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
                 file_contents_dict[file_name] = content
+                logger.info(f"Successfully loaded a splitted txt file into the dictionary.")
         except Exception as e:
             logger.error(e)
             raise
@@ -108,19 +110,18 @@ def load_file(folder_path: str) -> dict:
 async def generate_audio(text: str, voice: str, audio_file: str, subtitle_file: str):
     """Generates a single audio file."""
     communicate = edge_tts.Communicate(text, voice)
-    await communicate.save(audio_file)
-    communicate = edge_tts.Communicate(text, text)
     submaker = edge_tts.SubMaker()
     with open(audio_file, "wb") as file:
         async for chunk in communicate.stream():
             if chunk["type"] == "audio":
                 file.write(chunk["data"])
+                logger.info(f"Generating {audio_file}.")
             elif chunk["type"] in ("WordBoundary", "SentenceBoundary"):
                 submaker.feed(chunk)
-
     with open(subtitle_file, "w", encoding="utf-8") as file:
         file.write(submaker.get_srt())
-    print(f"Finished generating {audio_file}")
+        logger.info(f"Finished generating subtitle of {audio_file}.")
+    logger.info(f"Finished generating {audio_file}.")
 
 async def main():
     """Main function to run concurrent audio generation."""
@@ -156,11 +157,11 @@ async def main():
             tasks.append(task)
         
         await asyncio.gather(*tasks)
-        print("All audio files have been generated.")
-        print("--- %s seconds ---" % (time.time() - start_time))
+        logger.info("All audio files have been generated.")
+        logger.info("--- %s seconds ---" % (time.time() - start_time))
         logger.info('Finished')
     except Exception as e:
-            print(f"Error {e}")
+            logger.error(e)
 
 if __name__ == "__main__":
     asyncio.run(main())
